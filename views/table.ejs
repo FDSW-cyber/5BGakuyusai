@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <link rel="icon" href="/images/icon.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="/css/table.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>予約状況</title>
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+  </head>
+  <body>
+    <dialog id="howtouse">
+      <button id="close1" class="dialog">閉じる</button>
+      <h2>このサイトの使い方</h2>
+      <p>1.予約したい時間帯の「予約」ボタンをクリック(満員だと予約できません)</p>
+      <img src="/images/table_howtouse.jpg" alt="予約表使い方">
+      <p>
+        2.氏名、人数を入力<br>
+        (お子さんと同じ席を使う時は人数に含めません)
+      </p>
+      <img src="/images/reservation_howtouse.jpg" alt="予約送信使い方">
+      <p>
+        3.マイページが表示されます。<br>
+        <strong>必ずURLを保存するか、スクリーンショットを撮影するようにしてください！</strong>
+      </p>
+      <img src="/images/mypage_howtouse.jpg" alt="マイページ">
+      <button id="close2" class="dialog">閉じる</button>
+    </dialog>
+    <div id="gomypage">
+      <p>お客様はすでに予約されています。下のボタンからマイページへ移動できます。</p>
+      <button id="mypagebutton">マイページへ移動</button>
+    </div>
+    <button class="debug-solve">マイページ表示バグ解決ボタン</button>
+    <p>マイページへ移動をクリックしても、「URLが間違っています」と表示される人向け(当日非表示)</p>
+    <h1>5B学友祭　予約状況</h1>
+    <button id="open" class="dialog">このサイトの使い方</button>
+    <div class="table">
+      <table>
+        <colgroup>
+          <col class="tab">
+          <col class="reservation">
+          <col class="button">
+          <col class="note">
+        </colgroup>
+        <tr>
+          <td class="topcell">&nbsp;</td>
+          <th class="topcell">予約状況</th>
+          <th class="topcell">ボタン</th>
+          <th class="topcell">備考</th>
+        </tr>
+        <% for(let i=540;i<=830-interval;i=i+interval) { %>
+          <% const hour=String(Math.floor(i/60)).padStart(2,"0"); %>
+          <% const minute=String(i%60).padStart(2,"0"); %>
+          <tr>
+            <th><%= `${hour}:${minute}~` %></th>
+            <td><%= `${schedule[`${hour}:${minute}`]}/${maxpeople}` %></td>
+            <% let whethermax=false %>
+            <%if (Number(schedule[`${hour}:${minute}`])>=Number(maxpeople)){whethermax=true;}%>
+            <td><button data-time="<%= `${hour}:${minute}` %>" id="reservationbutton" class="reservation" <%=whethermax ? "disabled":""%> >
+              <%=whethermax ? "満員":"予約"%>
+            </button></td>
+            <td></td>
+          </tr>
+        <% } %>
+      </table>      
+    </div>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/table.js"></script>
+  </body>
+</html>

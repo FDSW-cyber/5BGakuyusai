@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>マイページ</title>
+    <link rel="icon" href="/images/icon.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+
+  <body>
+    <h1>マイページ</h1>
+    <p class="reservationinfo">予約番号:<%=id%>番</p>
+    <p class="reservationinfo"><%=time%>~ : <%=people%>名様</p>
+    <p>ようこそ<%=name%>様</p>
+    <p>
+      注意！ブラウザの設定によってはこのページは一度閉じると開けなくなります！！
+    </p>
+    <p>スクリーンショットやURLを保存しておくことを強く推奨します。</p>
+    <button id="debug">デバッグ用(別人として予約ページにアクセス)(当日は削除)</button>
+    <button id="backtotable">予約状況ページへ戻る(当日にも表示)</button>
+    <form action="/mypage" method="post" id="cancelform">
+      <input type="hidden" name="token" value="<%= token %>" />
+      <button type="submit">予約をキャンセルする</button>
+    </form>
+    <script>
+      localStorage.setItem("reservationToken", "<%=token%>");
+    </script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/mypage.js"></script>
+  </body>
+</html>

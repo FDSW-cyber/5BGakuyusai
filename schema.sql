@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS reservations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    time VARCHAR(5) NOT NULL,
+    people INTEGER NOT NULL,
+    token VARCHAR(64) NOT NULL UNIQUE
+);

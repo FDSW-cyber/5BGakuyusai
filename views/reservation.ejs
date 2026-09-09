@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>予約送信フォーム</title>
+  <link rel="icon" href="/images/icon.jpg" type="image/jpeg" />
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/reservation.css">
+  <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+  <div id="gomypage">
+    <p class="red">すでに予約済みです。予約を変更したい場合は、下のボタンでマイページへ戻り、<strong>一度予約をキャンセルしてください。</strong></p>
+    <button id="mypagebutton">マイページへ移動</button>
+  </div>
+  <div id="main">
+  <h1>予約送信ページ</h1>
+  <form action="" method="post" id="reservationForm">
+    <p>
+      <label for="name">代表者氏名(必須):</label>
+      <input type="text" name="name" id="name" required />
+    </p>
+    <p>
+      <label for="time">開始時間を選んでください(必須):</label>
+      <select name="time" id="time" required>
+        <% for(let i=540;i <=830-interval;i=i+interval) { %>
+          <% const hour=String(Math.floor(i/60)).padStart(2,"0"); %>
+          <% const minute=String(i%60).padStart(2,"0"); %>
+          <% let whethermax=false %>
+          <%if (Number(schedule[`${hour}:${minute}`])>=Number(maxpeople)){whethermax=true;}%>
+          <option value="<%= hour + ':' + minute %>" <%= (hour + ':' + minute) === selectedtime ? "selected" : "" %><%=whethermax?"disabled":""%>>
+            <%= hour + ':' + minute %>~(<%=whethermax?"満員":`${schedule[`${hour}:${minute}`]}人予約中`%>)
+          </option>
+        <%}%>
+        </select>
+      </p>
+      <p>
+        <label for="people">参加者の総数(必須):</label>
+        <select name="people" id="people" required>
+          <option value="">人数を選択</option>
+          <% for(let i=1;i<=maxpeople;i++) { %>
+          <option value=<%=i%> class=<%=`${i}人`%>>
+            <%= `${i}人` %>
+          </option>
+          <%}%>
+        </select>
+      </p>
+      <p><strong>
+        注意！<br>
+        お子さんが親御さんと同じ席を使う場合は人数にカウントしません！</strong></p>
+      <input type="hidden" name="token" id="reservationToken" value="">
+      <p><button type="submit">送信</button></p>
+</form>
+</div>
+<button class="backtotable">予約状況のページに戻る</button>
+<script>
+  const schedule = <%- JSON.stringify(schedule) %>;
+  const maxpeople = <%= maxpeople %>;
+</script>
+<script src="/scripts/main.js"></script>
+<script type="module" src="/scripts/reservation.js"></script>
+</body>
+</html>
