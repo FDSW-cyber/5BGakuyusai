@@ -1,5 +1,5 @@
 document.getElementById("gomypage").style.display = "none";
-const reservationToken = localStorage.getItem("reservationToken");
+const reservationToken = localStorage.getItem("reservationToken2");
 document.getElementById("mypagebutton").addEventListener("click", () => {
   location.href = `/mypage?token=${reservationToken}`;
 });
@@ -18,11 +18,6 @@ btn.forEach((button) => {
   button.addEventListener("click", () => {
     location.href = "/reservation?time=" + button.dataset.time;
   });
-});
-
-document.querySelector("button.debug-solve").addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
 });
 
 document.getElementById("open").addEventListener("click", () => {

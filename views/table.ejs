@@ -37,8 +37,6 @@
       <p>お客様はすでに予約されています。下のボタンからマイページへ移動できます。</p>
       <button id="mypagebutton">マイページへ移動</button>
     </div>
-    <button class="debug-solve">マイページ表示バグ解決ボタン</button>
-    <p>マイページへ移動をクリックしても、「URLが間違っています」と表示される人向け(当日非表示)</p>
     <h1>5B学友祭　予約状況</h1>
     <button id="open" class="dialog">このサイトの使い方</button>
     <div class="table">
@@ -55,7 +53,7 @@
           <th class="topcell">ボタン</th>
           <th class="topcell">備考</th>
         </tr>
-        <% for(let i=540;i<=830-interval;i=i+interval) { %>
+        <% for(let i=810;i<=930-interval;i=i+interval) { %>
           <% const hour=String(Math.floor(i/60)).padStart(2,"0"); %>
           <% const minute=String(i%60).padStart(2,"0"); %>
           <tr>
